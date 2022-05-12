@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +20,15 @@ public class storedFiles {
     }
     List<Account> memory = new ArrayList<>();
     List<Account> list = new ArrayList<>(memory);
-    
-    Gson gson =new Gson();
  
     public void write(){
-        try{
-            //Writer writer = Files.newBufferedWriter(Paths.get(sFileName));
-            //gson.toJson(, writer);
-                    Writer writer = new FileWriter("acc_data.json");
-                    gson.toJson(memory, writer);
+        Gson gson =new Gson();
+        try(Writer writer = Files.newBufferedWriter(Paths.get("acc_data.json"));){
+                    gson.toJson(list, writer);
                     writer.flush(); //flush data to file   <---
                     writer.close(); //close write  
                 } catch(IOException ex){
+                    ex.printStackTrace();
                     System.out.println (ex.toString());
                     System.out.println("Could not find file " + "acc_data.json");
                 }

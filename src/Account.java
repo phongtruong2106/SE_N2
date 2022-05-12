@@ -3,8 +3,10 @@ public class Account {
     private int passWord;
     private String email;
     private boolean loggendin = false;
-    Account account = new Account(userName, passWord, email);
-    storedFiles storedfiles = new storedFiles("acc_data.json");
+
+    static storedFiles storedfiles = new storedFiles("acc_data.json");
+
+
 
     public String getUserName() {
         return userName;
@@ -20,7 +22,6 @@ public class Account {
         this.userName = userName;
         this.passWord = passWord;
         this.email = email;
-        
     }
 
     public void set_account(String userName, int passWord){
@@ -42,12 +43,18 @@ public class Account {
     }
 
     public void logout(){
-            System.out.println("logout account Sussecfully");
+        this.userName = null;
+        this.passWord = 0;
+        System.out.println("logout account Sussecfully");
     }
 
     public void create_account(String userName, int passWord, String email){
-        this.set_account(userName, passWord);
+        this.userName = userName;
+        this.passWord = passWord;
         this.email = email;
+
+        Account account = new Account(userName, passWord, email);
+        storedfiles.list.add(account);
     }
 
     public boolean check_loggedin(){
@@ -63,6 +70,16 @@ public class Account {
     public void account_valib(String userName, String email){
         this.userName = userName;
         this.email = email;
-        storedfiles.memory.add(account);
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString() + "Account [email=" + email + ", password=" + passWord + ", username="
+        + userName + "]";
+    }
+
+    public Object getEmail() {
+        return null;
     }
 }
