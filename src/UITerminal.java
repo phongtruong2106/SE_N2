@@ -28,6 +28,7 @@ public class UITerminal {
 
 
 	public void display_options(){
+        accObj.storedfiles.read();
         int x;
         do{
             System.out.println("\t\t0. exit");
@@ -47,7 +48,7 @@ public class UITerminal {
                 break;
             }
         }while(x!=0);
-        accObj.storedfiles.read();
+      
         accObj.storedfiles.write();
     }
 
@@ -57,27 +58,30 @@ public class UITerminal {
         System.out.print("input passWord: ");
         int passWord = 0;
         try {
-            passWord = input.nextInt();
-            input.nextLine();
+            passWord = sc.nextInt();
+            sc.nextLine();
         } catch (InputMismatchException e1) {
             System.out.println("error!!");
             e1.printStackTrace();
             //TODO: handle exception
         }
         System.out.print("input Email: ");
-        String email = sc.nextLine();
+        String email = input.nextLine();
         for (Account account : accObj.storedfiles.list) {
             if (userName.equals(account.getUserName())) {
                 System.out.println("Username đã được sử dụng trước đó.");
-                System.out.println("Tạo tài khoản thất bại!!!.");
-                return;
+                System.out.println("create failed!!!.");
+                  return;
+       
             } else if (email.equals(account.getEmail())) {
                 System.out.println("Email đã được sử dụng trước đó.");
                 System.out.println("Tạo tài khoản thất bại!!!.");
                 return;
             }
+            
         }
         accObj.create_account(userName, passWord, email);
+        System.out.println("create account sussecfully!!");
         accObj.storedfiles.write();
     }
 }
