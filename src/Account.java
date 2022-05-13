@@ -2,7 +2,7 @@ public class Account {
     private String userName;
     private int passWord;
     private String email;
-    private boolean loggendin = false;
+    private boolean loggendin;
 
     static storedFiles storedfiles = new storedFiles("acc_data.json");
 
@@ -52,14 +52,13 @@ public class Account {
         this.userName = userName;
         this.passWord = passWord;
         this.email = email;
-
         Account account = new Account(userName, passWord, email);
         storedfiles.list.add(account);
     }
 
     public boolean check_loggedin(){
-        for(Account account: storedfiles.memory){
-            if(account.getUserName().equals(userName) && passWord == account.getPassWord()) 
+        for(Account account: storedfiles.list){
+            if(account.getUserName().equals(userName) && account.getPassWord() == passWord) 
              System.out.println("You are logged in");
                 loggendin = true;
         }
@@ -79,7 +78,7 @@ public class Account {
         + userName + "]";
     }
 
-    public Object getEmail() {
-        return null;
-    }
+   public String getEmail() {
+       return email;
+   }
 }
